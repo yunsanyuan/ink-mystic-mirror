@@ -1,0 +1,38 @@
+name: 缺陷反馈
+description: 报告页面、接口或测算结果中的问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: 请尽量写清复现步骤，方便快速定位。
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开页面
+        2. 选择某项功能
+        3. 输入出生信息并提交
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果
+      placeholder: 可以粘贴报错信息或截图说明
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: 环境
+      placeholder: Windows 11 / Python 3.11 / Chrome
+    validations:
+      required: true

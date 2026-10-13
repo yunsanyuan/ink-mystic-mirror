@@ -1,0 +1,24 @@
+name: 功能建议
+description: 提出新功能、文案或交互上的改进
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决什么问题
+      placeholder: 当前使用中有什么不便，或希望补充哪一类文化展示
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: 建议方案
+      placeholder: 可以是功能描述、交互草图或接口字段建议
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: 补充信息
+      placeholder: 参考资料、类似实现、是否愿意一起改
