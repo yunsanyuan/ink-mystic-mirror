@@ -1,0 +1,1143 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>水墨玄境 | 传统命理文化展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: #1a1c18;
+        }
+
+        /* 太极八卦背景 */
+        .dynamic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #2f3328 0%, #131510 100%);
+            overflow: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .bg-scroll-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-ring {
+            width: min(95vmin, 950px);
+            height: min(95vmin, 950px);
+            position: relative;
+            animation: spinCosmic 180s linear infinite;
+            will-change: transform;
+        }
+
+        @keyframes spinCosmic {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .taiji-svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32%;
+            height: 32%;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));
+            z-index: 10;
+        }
+
+        .sym {
+            position: absolute;
+            color: #d8cb9a;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        .gua-icon {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            align-items: center;
+        }
+
+        .gua-line {
+            width: 24px;
+            height: 3px;
+            background: #e0d0a8;
+            border-radius: 2px;
+        }
+
+            .gua-line.break {
+                background: linear-gradient(90deg, #e0d0a8 0%, #e0d0a8 38%, transparent 38%, transparent 62%, #e0d0a8 62%, #e0d0a8 100%);
+            }
+
+        .tick {
+            position: absolute;
+            width: 2px;
+            height: 12px;
+            background: #b8a67a;
+            transform-origin: center bottom;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffefb0;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 6s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.8;
+                transform: scale(1.3);
+            }
+        }
+
+        /* 水墨山水背景 */
+        .ink-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(145deg, #d9e0c5 0%, #b2c29a 100%);
+            overflow: hidden;
+        }
+
+        .ink-mountain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><path fill="%23333" d="M0,300 L0,200 Q150,150 300,180 Q450,210 600,160 Q750,110 900,150 Q1050,190 1200,130 L1200,300 Z" opacity="0.6"/><path fill="%23444" d="M0,300 L0,230 Q200,190 400,220 Q600,250 800,200 Q1000,150 1200,190 L1200,300 Z" opacity="0.5"/></svg>') repeat-x bottom;
+            background-size: 1200px 300px;
+            animation: slideMountain 20s linear infinite;
+        }
+
+        @keyframes slideMountain {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 1200px 0;
+            }
+        }
+
+        .ink-cloud {
+            position: absolute;
+            top: 10%;
+            left: -20%;
+            width: 200%;
+            height: 30%;
+            background: radial-gradient(ellipse at center, rgba(255,255,240,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: driftCloud 30s linear infinite;
+        }
+
+        @keyframes driftCloud {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(30%);
+            }
+        }
+
+        .ink-crane {
+            position: absolute;
+            bottom: 25%;
+            right: 5%;
+            width: 80px;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ccc" d="M50,20 Q60,30 65,20 Q70,10 80,15 Q90,20 85,30 Q80,40 70,45 Q60,50 50,55 Q40,50 30,45 Q20,40 15,30 Q10,20 20,15 Q30,10 35,20 Q40,30 50,20Z"/><path fill="%23aaa" d="M45,55 L40,75 L35,90 L45,85 L50,75 L55,85 L65,90 L60,75 L55,55 Z"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.5;
+            animation: floatCrane 8s infinite alternate;
+        }
+
+        @keyframes floatCrane {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-15px);
+            }
+        }
+
+        .solid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1f221c 0%, #0a0c08 100%);
+        }
+
+        .top-right-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .bg-switch-btn, .lang-switch-btn {
+            background: rgba(44,36,26,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 6px 14px;
+            border: 1px solid #b8a67a;
+            color: #e0d0a8;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+            .bg-switch-btn:hover, .lang-switch-btn:hover {
+                background: #5c4a32;
+            }
+
+        .main-container {
+            position: relative;
+            z-index: 20;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem;
+            height: 100vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .title-seal {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3.8rem;
+            background: linear-gradient(135deg, #f5e6b0, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            letter-spacing: 8px;
+            display: inline-block;
+            position: relative;
+            padding: 0 30px;
+        }
+
+            .main-title::before {
+                content: "「";
+                font-family: serif;
+                font-size: 3rem;
+                color: #d4af37;
+                position: absolute;
+                left: 0;
+                top: 0;
+                opacity: 0.8;
+            }
+
+            .main-title::after {
+                content: "」";
+                font-family: serif;
+                font-size: 3rem;
+                color: #d4af37;
+                position: absolute;
+                right: 0;
+                top: 0;
+                opacity: 0.8;
+            }
+
+        .sub-title {
+            color: #aa9f7a;
+            font-style: italic;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        .seal {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="%23b84e2c" stroke-width="2" /><text x="50" y="65" font-size="28" text-anchor="middle" fill="%23b84e2c" font-family="serif">玄境</text></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 640px) {
+            .main-title {
+                font-size: 2.5rem;
+                padding: 0 20px;
+            }
+
+                .main-title::before, .main-title::after {
+                    font-size: 2rem;
+                }
+
+            .seal {
+                width: 40px;
+                height: 40px;
+                right: 5px;
+                top: -5px;
+            }
+        }
+
+        .nav-tab {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(30,25,20,0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid #b8a67a;
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e8ddb0;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+            .tab-btn i {
+                margin-right: 0.5rem;
+            }
+
+            .tab-btn.active {
+                background: #5c4a32;
+                color: #fff3e0;
+                border-color: #e8c68a;
+                box-shadow: 0 0 6px rgba(232,198,138,0.3);
+            }
+
+            .tab-btn:hover:not(.active) {
+                background: #3e3122;
+                transform: translateY(-2px);
+            }
+
+        .func-card {
+            background: rgba(250,245,235,0.88);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            border: 1px solid #d4c2a2;
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .func-card::before {
+                content: "";
+                position: absolute;
+                top: -10%;
+                left: -10%;
+                width: 120%;
+                height: 120%;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="none" stroke="%23d4c2a2" stroke-width="0.5" d="M20,20 L180,20 L180,180 L20,180 Z M30,30 L170,30 L170,170 L30,170 Z" /></svg>') repeat;
+                opacity: 0.15;
+                pointer-events: none;
+            }
+
+            .func-card h2 {
+                border-left: 4px solid #b88b4a;
+                padding-left: 12px;
+                color: #3a2a1a;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+        .input-group {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .input-bamboo, select.input-bamboo {
+            background: #fef5e6;
+            border: 1px solid #cfbfa3;
+            border-radius: 2rem;
+            padding: 0.6rem 0.8rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            flex: 1;
+            min-width: 70px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .input-bamboo:focus, select.input-bamboo:focus {
+                border-color: #b88b4a;
+                box-shadow: 0 0 0 2px rgba(184,139,74,0.2);
+            }
+
+        .btn-ink {
+            background: #2c241a;
+            color: #f0ebe0;
+            border-radius: 40px;
+            padding: 0.6rem 1rem;
+            transition: 0.2s;
+            border: none;
+            width: 100%;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-ink::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,200,0.2), transparent);
+                transition: 0.4s;
+            }
+
+            .btn-ink:hover::before {
+                left: 100%;
+            }
+
+            .btn-ink:hover:not(:disabled) {
+                background: #4a3727;
+                transform: scale(0.98);
+            }
+
+        .btn-jie {
+            background: #7a684f;
+            margin-top: 0.8rem;
+        }
+
+            .btn-jie:hover {
+                background: #8f7a5c;
+            }
+
+        .result-area {
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            background: rgba(255,250,235,0.8);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            line-height: 1.6;
+            border-left: 3px solid #b88b4a;
+            border-right: 1px solid #d4c2a2;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+            .result-area::after {
+                content: "⚡ 玄境散人 谨识";
+                display: block;
+                text-align: right;
+                font-size: 0.7rem;
+                color: #b88b4a;
+                margin-top: 8px;
+                border-top: 1px dashed #d4c2a2;
+                padding-top: 6px;
+                font-style: italic;
+            }
+
+        .coin-shake {
+            animation: shakeCoin 0.4s ease-in-out;
+        }
+
+        @keyframes shakeCoin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(20deg);
+            }
+
+            50% {
+                transform: rotate(-15deg);
+            }
+
+            75% {
+                transform: rotate(10deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #b8a67a;
+            border-top: 1px dashed #b8a67a;
+            padding-top: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-content {
+            background: #fff9ef;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 2rem;
+            width: 85%;
+            max-width: 500px;
+            border: 1px solid #d4c2a2;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+            font-family: 'Noto Serif SC', serif;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #8b7a62;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover {
+                color: #2c241a;
+            }
+
+        .plum-blossom {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="8" fill="%23d48c6c" opacity="0.5"/><circle cx="35" cy="35" r="5" fill="%23e0a080" opacity="0.4"/><circle cx="65" cy="35" r="5" fill="%23e0a080" opacity="0.4"/><circle cx="50" cy="20" r="4" fill="%23d48c6c" opacity="0.3"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 25;
+        }
+
+        @media (max-width: 640px) {
+            .plum-blossom {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 太极八卦背景 -->
+    <div id="dynamicBg" class="dynamic-bg">
+        <div class="bg-scroll-container">
+            <div class="rotating-ring" id="cosmicRing">
+                <svg class="taiji-svg" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="98" fill="#2c2e2a" />
+                    <path d="M100,2 A98,98 0 0,0 100,198 A49,49 0 0,1 100,100 A49,49 0 0,0 100,2" fill="#f0ebe0" />
+                    <circle cx="100" cy="51" r="19.6" fill="#2c2e2a" />
+                    <circle cx="100" cy="149" r="19.6" fill="#f0ebe0" />
+                    <circle cx="100" cy="100" r="98" fill="none" stroke="#e6c87a" stroke-width="2.5" />
+                </svg>
+                <div id="dynamicElements" style="position:absolute; width:100%; height:100%; top:0; left:0;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 水墨山水背景（初始隐藏） -->
+    <div id="inkBg" class="ink-bg" style="display: none;"></div>
+
+    <div id="solidBg" class="solid-bg" style="display: none;"></div>
+
+    <div class="top-right-buttons">
+        <button id="bgSwitchBtn" class="bg-switch-btn"><i class="fas fa-palette"></i> <span id="bgSwitchText">山水·太极</span></button>
+        <button id="langSwitchBtn" class="lang-switch-btn"><i class="fas fa-globe"></i> <span id="langSwitchText">English</span></button>
+    </div>
+    <div class="plum-blossom"></div>
+
+    <div class="main-container">
+        <div class="title-seal">
+            <div class="seal"></div>
+            <div class="main-title">水墨·玄境</div>
+            <div class="sub-title">观天之道 · 执天之行</div>
+        </div>
+        <div class="nav-tab">
+            <button class="tab-btn active" data-tab="bazi"><i class="fas fa-chart-line"></i> <span class="tab-text">八字排盘</span></button>
+            <button class="tab-btn" data-tab="chenggu"><i class="fas fa-weight-hanging"></i> <span class="tab-text">称骨算命</span></button>
+            <button class="tab-btn" data-tab="yaogua"><i class="fas fa-coins"></i> <span class="tab-text">周易六爻</span></button>
+            <button class="tab-btn" data-tab="hehun"><i class="fas fa-heart"></i> <span class="tab-text">八字合婚</span></button>
+            <button class="tab-btn" data-tab="huangli"><i class="fas fa-calendar-alt"></i> <span class="tab-text">每日黄历</span></button>
+        </div>
+
+        <!-- 八字排盘面板 -->
+        <div id="tab-bazi" class="func-card" style="display: block;">
+            <div class="flex justify-between items-center"><h2><i class="fas fa-chart-line mr-2"></i> <span class="card-title">八字排盘</span></h2><button onclick="clearResult('bazi_result','btn_jie_bazi')" class="text-stone-500 hover:text-stone-700"><i class="fas fa-eraser"></i> <span class="clear-text">清空</span></button></div>
+            <div class="input-group mt-3">
+                <select id="bazi_year" class="input-bamboo"></select>
+                <select id="bazi_month" class="input-bamboo"></select>
+                <select id="bazi_day" class="input-bamboo"></select>
+                <select id="bazi_hour" class="input-bamboo"></select>
+            </div>
+            <button onclick="getBazi()" class="btn-ink mt-4"><i class="fas fa-leaf mr-1"></i> <span class="calc-text">推演命盘</span></button>
+            <div id="bazi_result" class="result-area hidden"></div>
+            <button id="btn_jie_bazi" class="btn-ink btn-jie" style="display: none;"><i class="fas fa-book mr-1"></i> <span class="jie-text">解卦详解</span></button>
+        </div>
+
+        <!-- 称骨算命面板 -->
+        <div id="tab-chenggu" class="func-card" style="display: none;">
+            <div class="flex justify-between items-center"><h2><i class="fas fa-weight-hanging mr-2"></i> <span class="card-title">称骨算命</span></h2><button onclick="clearResult('cg_result','btn_jie_cg')" class="text-stone-500 hover:text-stone-700"><i class="fas fa-eraser"></i> <span class="clear-text">清空</span></button></div>
+            <div class="input-group mt-3">
+                <select id="cg_year" class="input-bamboo"></select>
+                <select id="cg_month" class="input-bamboo"></select>
+                <select id="cg_day" class="input-bamboo"></select>
+                <select id="cg_hour" class="input-bamboo"></select>
+            </div>
+            <button onclick="getChengGu()" class="btn-ink mt-4"><i class="fas fa-calculator mr-1"></i> <span class="calc-text">称骨批命</span></button>
+            <div id="cg_result" class="result-area hidden"></div>
+            <button id="btn_jie_cg" class="btn-ink btn-jie" style="display: none;"><i class="fas fa-book mr-1"></i> <span class="jie-text">解卦详解</span></button>
+        </div>
+
+        <!-- 周易六爻面板 -->
+        <div id="tab-yaogua" class="func-card" style="display: none;">
+            <div class="flex justify-between items-center"><h2><i class="fas fa-coins mr-2"></i> <span class="card-title">周易六爻</span></h2><button onclick="clearResult('yao_result','btn_jie_yao')" class="text-stone-500 hover:text-stone-700"><i class="fas fa-eraser"></i> <span class="clear-text">清空</span></button></div>
+            <div class="flex justify-center my-4"><i id="coin_icon" class="fas fa-coins text-5xl text-amber-700"></i></div>
+            <button onclick="shakeYao()" id="shakeBtn" class="btn-ink"><i class="fas fa-hand-fist mr-1"></i> <span class="calc-text">摇卦 · 感而遂通</span></button>
+            <div id="yao_result" class="result-area hidden"></div>
+            <button id="btn_jie_yao" class="btn-ink btn-jie" style="display: none;"><i class="fas fa-book mr-1"></i> <span class="jie-text">解卦详解</span></button>
+        </div>
+
+        <!-- 八字合婚面板 -->
+        <div id="tab-hehun" class="func-card" style="display: none;">
+            <div class="flex justify-between items-center"><h2><i class="fas fa-heart mr-2"></i> <span class="card-title">八字合婚</span></h2><button onclick="clearResult('hehun_result','btn_jie_hehun')" class="text-stone-500 hover:text-stone-700"><i class="fas fa-eraser"></i> <span class="clear-text">清空</span></button></div>
+            <div class="border-b border-amber-300 pb-2 mb-3">
+                <h3 class="font-bold text-amber-800"><i class="fas fa-mars"></i> <span class="man-title">男方</span></h3>
+                <div class="input-group mt-2">
+                    <select id="man_year" class="input-bamboo"></select>
+                    <select id="man_month" class="input-bamboo"></select>
+                    <select id="man_day" class="input-bamboo"></select>
+                    <select id="man_hour" class="input-bamboo"></select>
+                </div>
+            </div>
+            <div class="border-b border-amber-300 pb-2 mb-3">
+                <h3 class="font-bold text-amber-800"><i class="fas fa-venus"></i> <span class="woman-title">女方</span></h3>
+                <div class="input-group mt-2">
+                    <select id="woman_year" class="input-bamboo"></select>
+                    <select id="woman_month" class="input-bamboo"></select>
+                    <select id="woman_day" class="input-bamboo"></select>
+                    <select id="woman_hour" class="input-bamboo"></select>
+                </div>
+            </div>
+            <button onclick="getHeHun()" class="btn-ink mt-2"><i class="fas fa-heartbeat mr-1"></i> <span class="calc-text">合婚测算</span></button>
+            <div id="hehun_result" class="result-area hidden"></div>
+            <button id="btn_jie_hehun" class="btn-ink btn-jie" style="display: none;"><i class="fas fa-book mr-1"></i> <span class="jie-text">解卦详解</span></button>
+        </div>
+
+        <!-- 每日黄历面板 -->
+        <div id="tab-huangli" class="func-card" style="display: none;">
+            <div class="flex justify-between items-center"><h2><i class="fas fa-calendar-alt mr-2"></i> <span class="card-title">每日黄历</span></h2><button onclick="clearResult('hl_result','btn_jie_hl')" class="text-stone-500 hover:text-stone-700"><i class="fas fa-eraser"></i> <span class="clear-text">清空</span></button></div>
+            <button onclick="getHuangli()" class="btn-ink mt-3"><i class="fas fa-sun mr-1"></i> <span class="calc-text">查阅宜忌</span></button>
+            <div id="hl_result" class="result-area hidden"></div>
+            <button id="btn_jie_hl" class="btn-ink btn-jie" style="display: none;"><i class="fas fa-book mr-1"></i> <span class="jie-text">解卦详解</span></button>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-info-circle"></i> <span class="footer-text">本站内容仅供文化娱乐与算法学习，请勿用于实际决策。命理之说，旨在启人心智，幸福终在自己手中。</span>
+        </div>
+    </div>
+
+    <div id="jieModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalText"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 语言包 ====================
+        const langPack = {
+            zh: {
+                bgSwitch: "山水·太极", langSwitch: "English", tabs: ["八字排盘", "称骨算命", "周易六爻", "八字合婚", "每日黄历"],
+                clear: "清空", calc: ["推演命盘", "称骨批命", "摇卦 · 感而遂通", "合婚测算", "查阅宜忌"], jie: "解卦详解",
+                man: "男方", woman: "女方", footer: "本站内容仅供文化娱乐与算法学习，请勿用于实际决策。命理之说，旨在启人心智，幸福终在自己手中。",
+                resultFields: { yearPillar: "年柱", monthPillar: "月柱", dayPillar: "日柱", timePillar: "时柱", dayMaster: "日主", tenGods: "十神", wuxing: "五行", cangGan: "藏干", boneWeight: "骨重", comment: "评语", animal: "生肖", tiangan: "天干", dizhi: "地支", score: "综合评分", advice: "合婚建议", lunar: "农历", solarTerm: "节气", yi: "宜", ji: "忌", chongSha: "冲煞" }
+            },
+            en: {
+                bgSwitch: "Landscape·Taiji", langSwitch: "中文", tabs: ["Bazi", "Bone Weight", "I Ching", "Match", "Almanac"],
+                clear: "Clear", calc: ["Calculate", "Calculate", "Cast", "Match", "Get"], jie: "Interpret",
+                man: "Male", woman: "Female", footer: "For cultural entertainment only. Destiny is in your own hands.",
+                resultFields: { yearPillar: "Year", monthPillar: "Month", dayPillar: "Day", timePillar: "Time", dayMaster: "Day Master", tenGods: "Ten Gods", wuxing: "Elements", cangGan: "Hidden", boneWeight: "Weight", comment: "Comment", animal: "Zodiac", tiangan: "Stem", dizhi: "Branch", score: "Score", advice: "Advice", lunar: "Lunar", solarTerm: "Term", yi: "Auspicious", ji: "Inauspicious", chongSha: "Conflict" }
+            }
+        };
+        let currentLang = 'zh';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            const t = langPack[lang];
+            document.getElementById('bgSwitchText').innerText = t.bgSwitch;
+            document.getElementById('langSwitchText').innerText = t.langSwitch;
+            document.querySelectorAll('.tab-text').forEach((el, i) => el.innerText = t.tabs[i]);
+            document.querySelectorAll('.clear-text').forEach(el => el.innerText = t.clear);
+            document.querySelectorAll('.calc-text').forEach((el, i) => el.innerText = t.calc[i]);
+            document.querySelectorAll('.jie-text').forEach(el => el.innerText = t.jie);
+            document.querySelectorAll('.man-title').forEach(el => el.innerText = t.man);
+            document.querySelectorAll('.woman-title').forEach(el => el.innerText = t.woman);
+            document.querySelector('.footer-text').innerText = t.footer;
+            if (lastBaziData) renderBaziResult(lastBaziData);
+            if (lastChengGuData) renderChengGuResult(lastChengGuData);
+            if (lastYaoData) renderYaoResult(lastYaoData);
+            if (lastHeHunData) renderHeHunResult(lastHeHunData);
+            if (lastHuangliData) renderHuangliResult(lastHuangliData);
+        }
+
+        // ==================== 通俗化解卦内容 + 深度劝解 ====================
+        function generateBaziInterpretation(data) {
+            const dayMaster = data.day_master;
+            const masterElement = { 甲: '木', 乙: '木', 丙: '火', 丁: '火', 戊: '土', 己: '土', 庚: '金', 辛: '金', 壬: '水', 癸: '水' }[dayMaster];
+            let natureDesc = '';
+            if (masterElement === '木') natureDesc = '你的性格像春天的树木一样，正直、仁慈、有向上生长的动力，喜欢帮助他人。';
+            else if (masterElement === '火') natureDesc = '你的性格像夏天的火焰，热情、开朗、充满活力，待人真诚热烈。';
+            else if (masterElement === '土') natureDesc = '你的性格像大地一样，敦厚、稳重、讲信用，有包容心。';
+            else if (masterElement === '金') natureDesc = '你的性格像金属一样，刚毅、果断、讲义气，做事雷厉风行。';
+            else natureDesc = '你的性格像流水一样，聪慧、善变、适应力强，富有智慧。';
+
+            let strengthDesc = '';
+            if (data.wu_xing[masterElement] === '旺') strengthDesc = '目前你的能量非常充沛，做事有冲劲，但也要注意别太急躁。';
+            else if (data.wu_xing[masterElement] === '弱') strengthDesc = '目前你的能量稍显不足，需要多休息、多补充相关的能量。';
+            else strengthDesc = '目前你的能量状态比较平衡，能够较好地应对生活中的各种事情。';
+
+            const ganRelations = `你与长辈（年干）的关系偏向${data.ten_gods.年干}，与同辈（月干）${data.ten_gods.月干}，与晚辈（时干）${data.ten_gods.时干}。`;
+            let advice = '';
+            if (data.ten_gods.年干.includes('杀')) advice += '你可能容易感到压力，建议多运动、多放松。';
+            else if (data.ten_gods.年干.includes('印')) advice += '你容易得到长辈的帮助，多向他们学习。';
+            else if (data.ten_gods.年干.includes('财')) advice += '你对财富有追求，但要注意理财规划。';
+            else advice += '你的人际关系比较和谐，继续保持。';
+
+            const cangInfo = Object.values(data.cang_gan).join('、');
+
+            const warmAdvice = `✨ 命理小贴士：以上分析仅供娱乐参考。真正的命运其实掌握在你自己手中。多读书、多运动、多行善事，保持积极乐观的心态，好运自然会伴随你。不要被一时的困难吓倒，也不要因小小的成就而骄傲。每天进步一点点，你的人生就会越来越美好。记住，你是自己命运的设计师！`;
+
+            return `<div>
+                            <p>${natureDesc}</p>
+                            <p>${strengthDesc}</p>
+                            <p>${ganRelations} ${advice}</p>
+                            <p>你的内在潜质（藏干）蕴含着：${cangInfo}，这些特质会在适当的时候展现出来。</p>
+                            <p class="mt-3 text-amber-700">${warmAdvice}</p>
+                        </div>`;
+        }
+
+        // 渲染函数
+        function renderBaziResult(data) {
+            const t = langPack[currentLang].resultFields;
+            let div = document.getElementById('bazi_result');
+            div.innerHTML = `<div>${t.yearPillar} ${data.year_pillar} ${t.monthPillar} ${data.month_pillar}<br>${t.dayPillar} ${data.day_pillar} ${t.timePillar} ${data.time_pillar}<br>${t.dayMaster} ${data.day_master}<br>${t.tenGods}：${data.ten_gods.年干}/${data.ten_gods.月干}/${data.ten_gods.时干}<br>${t.wuxing}：${Object.entries(data.wu_xing).map(([k, v]) => `${k}${v}`).join(' ')}<br>${t.cangGan}：${Object.values(data.cang_gan).join(' ')}</div>`;
+            lastBaziData = data;
+            let jieBtn = document.getElementById('btn_jie_bazi');
+            jieBtn.style.display = 'block';
+            jieBtn.onclick = () => { showModal(`<h3 class="font-bold text-lg mb-2">📜 ${currentLang === 'zh' ? '八字命理解读' : 'Bazi Interpretation'}</h3>${generateBaziInterpretation(data)}`); };
+        }
+
+        function renderChengGuResult(data) {
+            const t = langPack[currentLang].resultFields;
+            let div = document.getElementById('cg_result');
+            div.innerHTML = `<div class="font-bold text-center text-lg">${t.boneWeight} ${data.total_weight}</div><div class="text-xs">${data.weight_detail.year} · ${data.weight_detail.month} · ${data.weight_detail.day} · ${data.weight_detail.hour}</div><div class="italic mt-2">${t.comment} ${data.comment}</div>`;
+            lastChengGuData = data;
+            let jieBtn = document.getElementById('btn_jie_cg');
+            jieBtn.style.display = 'block';
+            jieBtn.onclick = () => {
+                let weightValue = parseFloat(data.total_weight);
+                let weightAdvice = weightValue < 3 ? "骨重较轻的朋友不必担心，袁天罡称骨法只是唐代的一种民间算法，仅供参考。历史上很多骨轻之人通过努力同样成就非凡。多行善事、广积福德，命运自会好转。" : (weightValue > 5 ? "骨重较重的朋友也不要骄傲，福气需要珍惜，保持谦逊和善良，才能让好运长久。" : "无论骨重几何，保持平常心，积极生活最重要。");
+                let warmAdvice = `💖 温馨寄语：称骨算命只是古人留下的趣味文化，千万不要因此束缚自己。你的价值不是由几两几钱决定的，而是由你的品德、努力和爱心决定的。每天给自己一个微笑，给他人一份善意，你的世界会越来越明亮。记住，命运就像手中的掌纹，虽然曲折，但始终掌握在自己手中。`;
+                showModal(`<h3 class="font-bold text-lg mb-2">⚖️ ${currentLang === 'zh' ? '称骨解读' : 'Bone Weight'}</h3><p>${data.total_weight}</p><p>${data.comment}</p><p>${weightAdvice}</p><p class="mt-2 text-amber-700">${warmAdvice}</p>`);
+            };
+        }
+
+        function renderYaoResult(data) {
+            let div = document.getElementById('yao_result');
+            div.innerHTML = `<div><strong>${currentLang === 'zh' ? '本卦' : 'Primary'}</strong> ${data.ben_gua}·${data.ben_name}<br>${data.ben_text}<br><strong>${currentLang === 'zh' ? '变卦' : 'Secondary'}</strong> ${data.bian_gua}·${data.bian_name}<br>${data.bian_text}<br>${currentLang === 'zh' ? '爻象' : 'Lines'}: ${data.yao_lines.join('；')}</div>`;
+            lastYaoData = data;
+            let jieBtn = document.getElementById('btn_jie_yao');
+            jieBtn.style.display = 'block';
+            jieBtn.onclick = () => {
+                let yaoExplain = data.yao_lines.some(l => l.includes("变")) ? "卦中有爻变动，说明事情会有转折，需要你重点关注变化的方向。" : "卦中无变爻，说明当前状态相对稳定，静观其变即可。";
+                let warmAdvice = `🌱 心灵启示：周易六爻是古人对自然规律的观察总结，它给我们提供了一种思考问题的角度，但绝不是宿命的判决。当你面对选择时，听从内心的声音，权衡利弊，勇敢行动。无论卦象如何，积极的心态和踏实的行动永远是改变命运的最佳方式。愿你以平常心看待结果，以进取心创造未来。`;
+                showModal(`<h3 class="font-bold text-lg mb-2">🪷 ${currentLang === 'zh' ? '卦象解读' : 'Hexagram'}</h3><p>${data.ben_gua}·${data.ben_name}<br>${data.ben_text}</p><p>${data.bian_gua}·${data.bian_name}<br>${data.bian_text}</p><p>${yaoExplain}</p><p class="mt-2 text-amber-700">${warmAdvice}</p>`);
+            };
+        }
+
+        function renderHeHunResult(data) {
+            const t = langPack[currentLang].resultFields;
+            let div = document.getElementById('hehun_result');
+            div.innerHTML = `<div>${currentLang === 'zh' ? '男' : 'M'} ${data.man_bazi}<br>${currentLang === 'zh' ? '女' : 'F'} ${data.woman_bazi}<br>${t.animal} ${data.shengxiao.detail}<br>${t.tiangan} ${data.tiangan.detail}<br>${t.dizhi} ${data.dizhi.detail}<br>${t.wuxing} ${data.wuxing.detail}<br><span class="font-bold">${t.score} ${data.total_score}</span><br>${t.advice} ${data.comment}</div>`;
+            lastHeHunData = data;
+            let jieBtn = document.getElementById('btn_jie_hehun');
+            jieBtn.style.display = 'block';
+            jieBtn.onclick = () => {
+                let score = data.total_score;
+                let baseAdvice = "";
+                if (score >= 80) baseAdvice = "你们的八字匹配度很高，是令人羡慕的良缘。但再好的缘分也需要用心经营，互相包容、沟通、支持，才能让爱情长久。";
+                else if (score >= 60) baseAdvice = "你们的八字匹配度中等，互补多于冲突。生活中难免有分歧，但只要双方愿意倾听、理解对方，就能化解矛盾，共同成长。";
+                else baseAdvice = "你们的八字匹配度较低，但这只是古人的一种参考，不必过于在意。真正的幸福在于彼此是否愿意为对方改变、付出。很多相克的情侣通过努力同样收获了美满婚姻。";
+                let warmAdvice = `💕 爱情箴言：婚姻的幸福，七分靠经营，三分看缘分。无论八字如何，请记住：尊重、信任、沟通、包容是幸福婚姻的基石。遇到分歧时，多换位思考；感到疲惫时，多给对方一个拥抱。愿你们珍惜眼前人，用爱和智慧书写属于自己的美好故事。`;
+                showModal(`<h3 class="font-bold text-lg mb-2">💑 ${currentLang === 'zh' ? '合婚详解' : 'Marriage Match'}</h3><p>${data.man_bazi}<br>${data.woman_bazi}</p><p>${data.shengxiao.detail}</p><p>${data.tiangan.detail}</p><p>${data.dizhi.detail}</p><p>${data.wuxing.detail}</p><p class="font-bold">${t.score} ${data.total_score}</p><p>${data.comment}</p><p class="mt-2">${baseAdvice}</p><p class="mt-2 text-amber-700">${warmAdvice}</p>`);
+            };
+        }
+
+        function renderHuangliResult(data) {
+            const t = langPack[currentLang].resultFields;
+            let div = document.getElementById('hl_result');
+            div.innerHTML = `<div>${t.lunar} ${data.lunar_date}<br>${t.solarTerm} ${data.solar_term || '无'}<br>${t.yi} ${(data.yi || []).join('、')}<br>${t.ji} ${(data.ji || []).join('、')}<br>${t.chongSha} ${data.chong_sha}</div>`;
+            lastHuangliData = data;
+            let jieBtn = document.getElementById('btn_jie_hl');
+            jieBtn.style.display = 'block';
+            jieBtn.onclick = () => {
+                let warmAdvice = `📖 黄历心语：黄历是古人根据天文气象和民间经验总结的参考，它反映了一种顺应自然的智慧。但不必过分拘泥，更不要因此焦虑。今天如果你想做一件“忌”的事情，只要心存善念、注意安全，也未尝不可。最重要的是保持内心的平和与喜悦，顺其自然，随遇而安。祝你今日安康，事事顺心！`;
+                showModal(`<h3 class="font-bold text-lg mb-2">📆 ${currentLang === 'zh' ? '黄历解读' : 'Almanac'}</h3><p>${data.lunar_date}</p><p>🌿 节气：${data.solar_term || '无'}</p><p>✅ 今日适宜：${(data.yi || []).join('、') || '无'}</p><p>❌ 今日不宜：${(data.ji || []).join('、') || '无'}</p><p>⚡ 冲煞：${data.chong_sha}</p><p class="mt-2 text-amber-700">${warmAdvice}</p>`);
+            };
+        }
+
+        // ==================== 背景八卦图生成（卦象图形也旋转朝向中心） ====================
+        const ring = document.getElementById('cosmicRing');
+        const container = document.getElementById('dynamicElements');
+        function getRadius() { return ring.getBoundingClientRect().width / 2; }
+        function placeElement(el, angleDeg, ratio) {
+            const radius = getRadius() * ratio;
+            const rad = angleDeg * Math.PI / 180;
+            const x = radius * Math.cos(rad);
+            const y = radius * Math.sin(rad);
+            el.style.left = `calc(50% + ${x}px)`;
+            el.style.top = `calc(50% + ${y}px)`;
+            el.style.transform = `translate(-50%, -50%) rotate(${angleDeg - 90}deg)`;
+        }
+        function addText(text, angle, ratio, fontSize = '0.9rem', cls = '') {
+            const span = document.createElement('div'); span.className = `sym ${cls}`;
+            span.textContent = text; span.style.fontSize = fontSize;
+            container.appendChild(span); placeElement(span, angle, ratio);
+        }
+        function addGuaIcon(guaName, angle, ratio) {
+            const wrapper = document.createElement('div'); wrapper.className = 'gua-icon';
+            let lines = [];
+            if (guaName === '乾') lines = ['yang', 'yang', 'yang'];
+            else if (guaName === '坤') lines = ['yin', 'yin', 'yin'];
+            else if (guaName === '震') lines = ['yin', 'yin', 'yang'];
+            else if (guaName === '巽') lines = ['yang', 'yang', 'yin'];
+            else if (guaName === '坎') lines = ['yin', 'yang', 'yin'];
+            else if (guaName === '离') lines = ['yang', 'yin', 'yang'];
+            else if (guaName === '艮') lines = ['yang', 'yin', 'yin'];
+            else if (guaName === '兑') lines = ['yin', 'yang', 'yang'];
+            else lines = ['yang', 'yang', 'yang'];
+            lines.forEach(type => {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = `gua-line ${type === 'yin' ? 'break' : ''}`;
+                wrapper.appendChild(lineDiv);
+            });
+            container.appendChild(wrapper);
+            const radius = getRadius() * ratio;
+            const rad = angle * Math.PI / 180;
+            const x = radius * Math.cos(rad);
+            const y = radius * Math.sin(rad);
+            wrapper.style.left = `calc(50% + ${x}px)`;
+            wrapper.style.top = `calc(50% + ${y}px)`;
+            wrapper.style.transform = `translate(-50%, -50%) rotate(${angle - 90}deg)`;
+        }
+        function addTick(angle, ratio, len = 12) {
+            const tick = document.createElement('div'); tick.className = 'tick'; tick.style.height = `${len}px`;
+            container.appendChild(tick); placeElement(tick, angle, ratio);
+            tick.style.transform = `translate(-50%, -50%) rotate(${angle + 90}deg)`;
+        }
+        function addStar(angle, ratio, size) {
+            const star = document.createElement('div'); star.className = 'star';
+            star.style.width = `${size}px`; star.style.height = `${size}px`;
+            container.appendChild(star); placeElement(star, angle, ratio);
+            star.style.transform = `translate(-50%, -50%)`;
+        }
+        function initBackground() {
+            container.innerHTML = '';
+            const baguaNames = ["乾", "坤", "震", "巽", "坎", "离", "艮", "兑"];
+            const anglesBagua = [0, 45, 90, 135, 180, 225, 270, 315];
+            anglesBagua.forEach((a, i) => { addText(baguaNames[i], a, 0.65, '1.1rem', 'font-bold'); addGuaIcon(baguaNames[i], a, 0.55); });
+            const laterBagua = ["离", "坤", "兑", "乾", "坎", "艮", "震", "巽"];
+            laterBagua.forEach((name, i) => addText(name, anglesBagua[i], 0.78, '0.9rem', 'text-amber-300'));
+            const dizhi = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+            const dzAngles = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+            dzAngles.forEach((a, i) => { addText(dizhi[i], a, 0.88, '1rem', 'font-semibold'); addTick(a, 0.93, 12); });
+            const tiangan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+            const tgAngles = [0, 36, 72, 108, 144, 180, 216, 252, 288, 324];
+            tgAngles.forEach((a, i) => addText(tiangan[i], a, 0.98, '0.85rem', 'text-stone-300'));
+            dzAngles.forEach((a, i) => addText(dizhi[i] + "时", a, 1.03, '0.8rem', 'text-stone-400'));
+            const jieqi = ["立春", "春分", "立夏", "夏至", "立秋", "秋分", "立冬", "冬至"];
+            const jqAngles = [0, 45, 90, 135, 180, 225, 270, 315];
+            jqAngles.forEach((a, i) => addText(jieqi[i], a, 1.12, '0.8rem', 'text-stone-400'));
+            const wuxing = ["金", "木", "水", "火", "土"];
+            const wxAngles = [72, 144, 216, 288, 360];
+            wxAngles.forEach((a, i) => addText(wuxing[i], a, 1.18, '0.95rem', 'text-amber-400'));
+            for (let i = 0; i < 12; i++) addText((i * 2).toString(), i * 30, 1.23, '0.7rem', 'text-stone-500');
+            for (let i = 0; i < 60; i++) addStar(Math.random() * 360, 1.28 + Math.random() * 0.25, 1 + Math.random() * 3);
+        }
+        window.addEventListener('resize', () => { setTimeout(initBackground, 100); });
+
+        // ==================== 背景切换 ====================
+        const dynamicBg = document.getElementById('dynamicBg');
+        const inkBg = document.getElementById('inkBg');
+        const solidBg = document.getElementById('solidBg');
+        let bgMode = 'dynamic'; // dynamic, ink, solid
+        document.getElementById('bgSwitchBtn').addEventListener('click', () => {
+            if (bgMode === 'dynamic') {
+                dynamicBg.style.display = 'none';
+                inkBg.style.display = 'block';
+                solidBg.style.display = 'none';
+                bgMode = 'ink';
+            } else if (bgMode === 'ink') {
+                dynamicBg.style.display = 'none';
+                inkBg.style.display = 'none';
+                solidBg.style.display = 'block';
+                bgMode = 'solid';
+            } else {
+                dynamicBg.style.display = 'block';
+                inkBg.style.display = 'none';
+                solidBg.style.display = 'none';
+                bgMode = 'dynamic';
+                setTimeout(initBackground, 50);
+            }
+        });
+        document.getElementById('langSwitchBtn').addEventListener('click', () => {
+            if (currentLang === 'zh') switchLanguage('en');
+            else switchLanguage('zh');
+        });
+
+        // ==================== 日期选择器 ====================
+        const hourOptions = [
+            { value: 0, label: "子时 (23-01)" }, { value: 2, label: "丑时 (01-03)" }, { value: 4, label: "寅时 (03-05)" },
+            { value: 6, label: "卯时 (05-07)" }, { value: 8, label: "辰时 (07-09)" }, { value: 10, label: "巳时 (09-11)" },
+            { value: 12, label: "午时 (11-13)" }, { value: 14, label: "未时 (13-15)" }, { value: 16, label: "申时 (15-17)" },
+            { value: 18, label: "酉时 (17-19)" }, { value: 20, label: "戌时 (19-21)" }, { value: 22, label: "亥时 (21-23)" }
+        ];
+        function populateHourSelect(selectId) {
+            let sel = document.getElementById(selectId);
+            sel.innerHTML = '';
+            hourOptions.forEach(opt => { let o = document.createElement('option'); o.value = opt.value; o.textContent = opt.label; if (opt.value === 12) o.selected = true; sel.appendChild(o); });
+        }
+        function populateYearSelect(selectId, defaultYear) {
+            let sel = document.getElementById(selectId);
+            sel.innerHTML = '';
+            for (let y = 1900; y <= 2100; y++) { let o = document.createElement('option'); o.value = y; o.textContent = y; if (y === defaultYear) o.selected = true; sel.appendChild(o); }
+        }
+        function populateMonthSelect(selectId, defaultMonth) {
+            let sel = document.getElementById(selectId);
+            sel.innerHTML = '';
+            for (let m = 1; m <= 12; m++) { let o = document.createElement('option'); o.value = m; o.textContent = m + '月'; if (m === defaultMonth) o.selected = true; sel.appendChild(o); }
+        }
+        function populateDaySelect(selectId, year, month, defaultDay) {
+            let sel = document.getElementById(selectId);
+            let days = new Date(year, month, 0).getDate();
+            sel.innerHTML = '';
+            for (let d = 1; d <= days; d++) { let o = document.createElement('option'); o.value = d; o.textContent = d + '日'; if (d === defaultDay) o.selected = true; sel.appendChild(o); }
+        }
+        function initDateSelectors() {
+            const today = new Date();
+            const y = today.getFullYear(), m = today.getMonth() + 1, d = today.getDate();
+            const selects = [
+                { year: 'bazi_year', month: 'bazi_month', day: 'bazi_day', hour: 'bazi_hour' },
+                { year: 'cg_year', month: 'cg_month', day: 'cg_day', hour: 'cg_hour' },
+                { year: 'man_year', month: 'man_month', day: 'man_day', hour: 'man_hour' },
+                { year: 'woman_year', month: 'woman_month', day: 'woman_day', hour: 'woman_hour' }
+            ];
+            selects.forEach(s => {
+                populateYearSelect(s.year, y);
+                populateMonthSelect(s.month, m);
+                populateDaySelect(s.day, y, m, d);
+                populateHourSelect(s.hour);
+                document.getElementById(s.year).addEventListener('change', function () {
+                    let yy = parseInt(this.value);
+                    let mm = parseInt(document.getElementById(s.month).value);
+                    populateDaySelect(s.day, yy, mm, 1);
+                });
+                document.getElementById(s.month).addEventListener('change', function () {
+                    let yy = parseInt(document.getElementById(s.year).value);
+                    let mm = parseInt(this.value);
+                    populateDaySelect(s.day, yy, mm, 1);
+                });
+            });
+        }
+
+        // ==================== 全局变量与辅助 ====================
+        let lastBaziData, lastChengGuData, lastYaoData, lastHeHunData, lastHuangliData;
+        function clearResult(resultId, btnId) {
+            let div = document.getElementById(resultId);
+            if (div) { div.classList.add('hidden'); div.innerHTML = ''; }
+            let btn = document.getElementById(btnId);
+            if (btn) btn.style.display = 'none';
+        }
+        function showError(id, msg) { let d = document.getElementById(id); d.innerHTML = `<div class="text-red-700 border-l-4 border-red-500 pl-2">⚠️ ${msg}</div>`; d.classList.remove('hidden'); }
+        function getSelectInt(id) { return parseInt(document.getElementById(id).value); }
+        function setLoading(btnId, loading, orig) {
+            let btn = document.getElementById(btnId);
+            if (!btn) return;
+            if (loading) { btn._orig = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 处理中...'; btn.disabled = true; }
+            else { btn.innerHTML = btn._orig || orig; btn.disabled = false; }
+        }
+        function showModal(text) { document.getElementById('modalText').innerHTML = text; document.getElementById('jieModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('jieModal').style.display = 'none'; }
+        window.onclick = function (e) { if (e.target === document.getElementById('jieModal')) closeModal(); }
+
+        // ==================== API 请求 ====================
+        async function getBazi() {
+            setLoading('btn_bazi', true, '<i class="fas fa-leaf mr-1"></i> 推演命盘');
+            let year = getSelectInt('bazi_year'), month = getSelectInt('bazi_month'), day = getSelectInt('bazi_day'), hour = getSelectInt('bazi_hour');
+            try {
+                let res = await fetch('/api/bazi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ year, month, day, hour }) });
+                let data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                renderBaziResult(data);
+                document.getElementById('bazi_result').classList.remove('hidden');
+            } catch (e) { showError('bazi_result', e.message); }
+            finally { setLoading('btn_bazi', false, ''); }
+        }
+        async function getChengGu() {
+            setLoading('btn_cg', true, '<i class="fas fa-calculator mr-1"></i> 称骨批命');
+            let year = getSelectInt('cg_year'), month = getSelectInt('cg_month'), day = getSelectInt('cg_day'), hour = getSelectInt('cg_hour');
+            try {
+                let res = await fetch('/api/chenggu', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ year, month, day, hour }) });
+                let data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                renderChengGuResult(data);
+                document.getElementById('cg_result').classList.remove('hidden');
+            } catch (e) { showError('cg_result', e.message); }
+            finally { setLoading('btn_cg', false, ''); }
+        }
+        async function shakeYao() {
+            let btn = document.getElementById('shakeBtn'), icon = document.getElementById('coin_icon');
+            icon.classList.add('coin-shake'); let orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 摇卦中...'; btn.disabled = true;
+            setTimeout(() => icon.classList.remove('coin-shake'), 500);
+            try {
+                let res = await fetch('/api/yaogua', { method: 'POST' });
+                let data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                renderYaoResult(data);
+                document.getElementById('yao_result').classList.remove('hidden');
+            } catch (e) { showError('yao_result', e.message); }
+            finally { btn.innerHTML = orig; btn.disabled = false; }
+        }
+        async function getHuangli() {
+            setLoading('btn_hl', true, '<i class="fas fa-sun mr-1"></i> 查阅宜忌');
+            try {
+                let res = await fetch('/api/huangli');
+                let data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                renderHuangliResult(data);
+                document.getElementById('hl_result').classList.remove('hidden');
+            } catch (e) { showError('hl_result', e.message); }
+            finally { setLoading('btn_hl', false, ''); }
+        }
+        async function getHeHun() {
+            setLoading('btn_hehun', true, '<i class="fas fa-heartbeat mr-1"></i> 合婚测算');
+            let man_year = getSelectInt('man_year'), man_month = getSelectInt('man_month'), man_day = getSelectInt('man_day'), man_hour = getSelectInt('man_hour');
+            let woman_year = getSelectInt('woman_year'), woman_month = getSelectInt('woman_month'), woman_day = getSelectInt('woman_day'), woman_hour = getSelectInt('woman_hour');
+            try {
+                let res = await fetch('/api/hehun', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ man_year, man_month, man_day, man_hour, woman_year, woman_month, woman_day, woman_hour }) });
+                let data = await res.json();
+                if (!data.success) throw new Error(data.message);
+                renderHeHunResult(data);
+                document.getElementById('hehun_result').classList.remove('hidden');
+            } catch (e) { showError('hehun_result', e.message); }
+            finally { setLoading('btn_hehun', false, ''); }
+        }
+
+        // 选项卡切换
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = {
+            bazi: document.getElementById('tab-bazi'),
+            chenggu: document.getElementById('tab-chenggu'),
+            yaogua: document.getElementById('tab-yaogua'),
+            hehun: document.getElementById('tab-hehun'),
+            huangli: document.getElementById('tab-huangli')
+        };
+        tabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let id = btn.getAttribute('data-tab');
+                tabs.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.values(panels).forEach(p => { if (p) p.style.display = 'none'; });
+                if (panels[id]) panels[id].style.display = 'block';
+            });
+        });
+
+        window.onload = () => {
+            initDateSelectors();
+            initBackground();
+            getHuangli();
+            switchLanguage('zh');
+        };
+    </script>
+</body>
+</html>
